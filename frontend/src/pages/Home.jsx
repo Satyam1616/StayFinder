@@ -25,7 +25,7 @@ const Home = () => {
   const currentListings = listings.slice(1, 10);
   const { wishlist, toggleWishlist } = useWishlist(token);
   console.log(loading);
-
+  console.log(listings);
   const { hostingRef } = useContext(ScrollContext);
   const location = useLocation();
   const navigate = useNavigate();

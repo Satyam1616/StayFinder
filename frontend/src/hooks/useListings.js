@@ -59,7 +59,7 @@ const useListings = () => {
 
     try {
       const { data } = await axios.get(`${backendUrl}/api/listings`);
-
+      console.log(data.listings);
       if (data.success) {
         setListings(data.listings);
       } else {
