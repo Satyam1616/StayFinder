@@ -19,8 +19,9 @@ import DestinationHighlights from "../components/home/DestinationHighlights.jsx"
 import HostBenefits from "../components/home/HostBenefits.jsx";
 
 const Home = () => {
-  const { token } = useContext(AppContext);
+  const { token, backendUrl } = useContext(AppContext);
   const { listings, loading } = useListings();
+  console.log(backendUrl);
   const currentListings = listings.slice(1, 10);
   const { wishlist, toggleWishlist } = useWishlist(token);
   console.log(loading);
