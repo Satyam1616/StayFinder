@@ -42,7 +42,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // or your frontend domain
+    origin: "https://stayfinder-frontend-rkk6.onrender.com/", // or your frontend domain
     methods: ["GET", "POST"],
   },
 });
