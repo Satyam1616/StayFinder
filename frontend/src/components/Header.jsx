@@ -220,7 +220,7 @@ export const Header = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div ref={mobileMenuRef}>
+          <div>
             {" "}
             <button
               onClick={() => setShowMobileMenu(!showMobileMenu)}
@@ -233,7 +233,10 @@ export const Header = () => {
 
         {/* Mobile Menu */}
         {showMobileMenu && (
-          <div className="md:hidden border-t border-gray-100 py-4">
+          <div
+            className="md:hidden border-t border-gray-100 py-4"
+            ref={mobileMenuRef}
+          >
             <div className="space-y-3">
               {/* Mobile search */}
               <div className="relative">
@@ -271,6 +274,16 @@ export const Header = () => {
                   >
                     My Trips
                   </Link>
+
+                  <Link
+                    to="/wishlist"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    onClick={() => setShowUserMenu(false)}
+                  >
+                    <Heart className="inline h-4 w-4 mr-2" />
+                    Wishlist
+                  </Link>
+
                   <Link
                     to="/profile"
                     className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
