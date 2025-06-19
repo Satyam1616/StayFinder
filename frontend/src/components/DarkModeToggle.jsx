@@ -1,4 +1,3 @@
-// components/DarkModeToggle.jsx
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react"; // Optional: Use any icons
 

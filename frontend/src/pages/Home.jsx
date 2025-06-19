@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import DarkModeToggle from "../components/DarkmodeToggle";
 import HeroSection from "../components/home/HeroSection.jsx";
 import { ArrowRight, HomeIcon, User } from "lucide-react";
 import Testimonials from "../components/home/Testimonials.jsx";
