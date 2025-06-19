@@ -223,6 +223,7 @@ export const Header = () => {
           <div>
             {" "}
             <button
+              ref={mobileMenuRef}
               onClick={() => setShowMobileMenu(!showMobileMenu)}
               className="md:hidden p-2 text-gray-600 hover:text-gray-900"
             >
@@ -233,10 +234,7 @@ export const Header = () => {
 
         {/* Mobile Menu */}
         {showMobileMenu && (
-          <div
-            ref={mobileMenuRef}
-            className="md:hidden border-t border-gray-100 py-4"
-          >
+          <div className="md:hidden border-t border-gray-100 py-4">
             <div className="space-y-3">
               {/* Mobile search */}
               <div className="relative">
