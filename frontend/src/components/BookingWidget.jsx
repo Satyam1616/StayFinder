@@ -125,17 +125,19 @@ const BookingWidget = ({ listing }) => {
             </select>
           </div>
 
-          <div className="mb-4">
-            <Calendar
-              mode="range"
-              selected={{ from: checkIn, to: checkOut }}
-              onSelect={(range) => {
-                setCheckIn(range?.from);
-                setCheckOut(range?.to);
-              }}
-              className="rounded-md border border-gray-200"
-              disabled={(date) => date < new Date()}
-            />
+          <div className="mb-4 overflow-x-auto sm:overflow-visible">
+            <div className="inline-block min-w-full sm:min-w-0">
+              <Calendar
+                mode="range"
+                selected={{ from: checkIn, to: checkOut }}
+                onSelect={(range) => {
+                  setCheckIn(range?.from);
+                  setCheckOut(range?.to);
+                }}
+                className="rounded-md border border-gray-200 text-sm sm:text-base"
+                disabled={(date) => date < new Date()}
+              />
+            </div>
           </div>
 
           <button

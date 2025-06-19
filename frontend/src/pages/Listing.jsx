@@ -64,7 +64,7 @@ const Listing = () => {
   if (loading && !listing)
     return (
       <div className="flex justify-center items-center h-screen">
-        <TailSpinLoader size={50} />;
+        <TailSpinLoader size={50} />
       </div>
     );
   if (!listing)

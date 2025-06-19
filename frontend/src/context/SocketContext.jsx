@@ -40,7 +40,6 @@ export const SocketContextProvider = ({ children }) => {
     });
 
     newSocket.on("booking-updated", (data) => {
-      console.log(data.status);
       if (data.status === "approved") toast.success(data.message);
       else toast.error(data.message);
     });

@@ -30,7 +30,7 @@ const Login = () => {
       const { data } = await axios.post(backendUrl + "/api/user/login", {
         ...formData,
       });
-      console.log(data);
+
       if (data.success) {
         toast.success(data.message);
         localStorage.setItem("token", data.token);

@@ -38,10 +38,11 @@ export const Header = () => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowUserMenu(false);
       }
-
+      const menuButton = document.querySelector(".mobile-menu-button");
       if (
         mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target)
+        !mobileMenuRef.current.contains(event.target) &&
+        !menuButton.contains(event.target)
       ) {
         setShowMobileMenu(false);
       }
@@ -224,7 +225,7 @@ export const Header = () => {
             {" "}
             <button
               onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="md:hidden p-2 text-gray-600 hover:text-gray-900"
+              className="md:hidden p-2 text-gray-600 hover:text-gray-900 mobile-menu-button"
             >
               <Menu className="h-6 w-6" />
             </button>
@@ -252,6 +253,13 @@ export const Header = () => {
               {user ? (
                 <>
                   <Link
+                    to="/profile"
+                    className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    Profile
+                  </Link>
+                  <Link
                     to="/host/dashboard"
                     className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
                     onClick={() => setShowMobileMenu(false)}
@@ -277,20 +285,12 @@ export const Header = () => {
 
                   <Link
                     to="/wishlist"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
                     onClick={() => setShowUserMenu(false)}
                   >
-                    <Heart className="inline h-4 w-4 mr-2" />
                     Wishlist
                   </Link>
 
-                  <Link
-                    to="/profile"
-                    className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
-                    onClick={() => setShowMobileMenu(false)}
-                  >
-                    Profile
-                  </Link>
                   <button
                     onClick={handleLogout}
                     className="block w-full text-left text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
