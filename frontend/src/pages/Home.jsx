@@ -20,7 +20,7 @@ import HostBenefits from "../components/home/HostBenefits.jsx";
 
 const Home = () => {
   const { token, backendUrl } = useContext(AppContext);
-  const { listings, loading } = useListings();
+  const { listings, loading, getListings } = useListings();
   console.log(backendUrl);
   const currentListings = listings.slice(1, 10);
   const { wishlist, toggleWishlist } = useWishlist(token);
@@ -29,7 +29,10 @@ const Home = () => {
   const { hostingRef } = useContext(ScrollContext);
   const location = useLocation();
   const navigate = useNavigate();
-
+  useEffect(() => {
+    getListings();
+    console.log(listings);
+  }, [listings]);
   useEffect(() => {
     // Check for scroll flag in both state and hash for redundancy
     const shouldScroll =
