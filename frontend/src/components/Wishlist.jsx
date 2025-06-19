@@ -6,11 +6,12 @@ import WishlistItem from "./WishlistItem.jsx";
 import useListings from "../hooks/useListings.js";
 import useWishlist from "../hooks/useWishlist.js";
 import AppContext from "../context/AuthContext.jsx";
+import TailSpinLoader from "./Loader.jsx";
 
 const Wishlist = () => {
   const { listings } = useListings();
   const { token } = useContext(AppContext);
-  const { wishlist } = useWishlist(token);
+  const { wishlist, loading } = useWishlist(token);
 
   // Get full listing details for wishlisted items
   console.log(listings, wishlist);
@@ -19,7 +20,13 @@ const Wishlist = () => {
     wishlist?.includes(listing._id)
   );
   console.log(wishlistListings);
-
+  console.log(loading);
+  if (loading)
+    return (
+      <div className="h-screen flex items-center justify-center ">
+        <TailSpinLoader />
+      </div>
+    );
   return (
     <div className="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8 py-8">
       <div className="flex items-center justify-between mb-8">

@@ -286,7 +286,7 @@ export const Header = () => {
                   <Link
                     to="/wishlist"
                     className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
-                    onClick={() => setShowUserMenu(false)}
+                    onClick={() => setShowMobileMenu(false)}
                   >
                     Wishlist
                   </Link>
