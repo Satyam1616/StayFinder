@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.getItem("token") ? localStorage.getItem("token") : null
   );
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const backendUrl = import.meta.env.BACKEND_URL;
 
   const loadUserData = async () => {
     const { data } = await axios.get(backendUrl + "/api/user/get-profile", {
