@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.getItem("token") ? localStorage.getItem("token") : null
   );
 
-  const backendUrl = import.meta.env.BACKEND_URL;
+  const backendUrl = "https://stayfinder-backend-l4aj.onrender.com";
   console.log(backendUrl);
 
   const loadUserData = async () => {
