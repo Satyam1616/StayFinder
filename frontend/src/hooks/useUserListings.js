@@ -6,20 +6,17 @@ import AppContext from "../context/AuthContext";
 const useUserListings = (token, backendUrl) => {
   const [userListings, setUserListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  //const { getUserListings } = useContext(AppContext);
+  const { backendUrl } = useContext(AppContext);
   const fetchUserListings = async () => {
     try {
       console.log("Fetching with:", backendUrl, token);
       // getUserListings();
       console.log(token);
-      const { data } = await axios.get(
-        "http://localhost:3000/api/user/my-listings",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.get(backendUrl + "/api/user/my-listings", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (data.success) {
         setUserListings(data.listings);

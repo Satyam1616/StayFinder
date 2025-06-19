@@ -10,7 +10,7 @@ export const useSocketContext = () => {
 };
 
 export const SocketContextProvider = ({ children }) => {
-  const { user } = useContext(AppContext);
+  const { user, backendUrl } = useContext(AppContext);
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const SocketContextProvider = ({ children }) => {
       return;
     }
 
-    const newSocket = io("http://localhost:3000", {
+    const newSocket = io(backendUrl, {
       query: { userId: user._id },
     });
 
