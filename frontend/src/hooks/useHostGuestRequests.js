@@ -83,7 +83,7 @@ const useHostGuestRequests = (backendUrl, token, socket) => {
               ? { ...req, ...data.updatedBooking }
               : req
           )
-        ); // toast.success(data.message || "Booking updated!");
+        );
       }
     };
 
