@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   );
 
   const backendUrl = import.meta.env.BACKEND_URL;
+  console.log(backendUrl);
 
   const loadUserData = async () => {
     const { data } = await axios.get(backendUrl + "/api/user/get-profile", {
