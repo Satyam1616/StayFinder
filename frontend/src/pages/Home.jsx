@@ -32,7 +32,7 @@ const Home = () => {
   useEffect(() => {
     getListings();
     console.log(listings);
-  }, [listings]);
+  }, []);
   useEffect(() => {
     // Check for scroll flag in both state and hash for redundancy
     const shouldScroll =
