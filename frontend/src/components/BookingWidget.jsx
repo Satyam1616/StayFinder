@@ -19,7 +19,7 @@ const BookingWidget = ({ listing }) => {
       });
       return;
     }
-    console.log(token);
+
     try {
       const { data } = await axios.post(
         `${backendUrl}/api/user/add-listing`,

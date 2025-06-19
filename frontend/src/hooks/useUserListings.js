@@ -9,8 +9,7 @@ const useUserListings = (token, backendUrl) => {
   const fetchUserListings = async () => {
     try {
       console.log("Fetching with:", backendUrl, token);
-      // getUserListings();
-      console.log(token);
+
       const { data } = await axios.get(backendUrl + "/api/user/my-listings", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -20,7 +19,6 @@ const useUserListings = (token, backendUrl) => {
       if (data.success) {
         setUserListings(data.listings);
       } else {
-        console.log("errorrr");
         toast.error(data.message || "Failed to load listings");
       }
     } catch (error) {
@@ -34,7 +32,6 @@ const useUserListings = (token, backendUrl) => {
   useEffect(() => {
     if (token) {
       fetchUserListings();
-      console.log(token);
     }
   }, [token]);
 

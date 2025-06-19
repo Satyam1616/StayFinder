@@ -64,7 +64,6 @@ const register = async (req, res) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      console.log("User already exists:", existingUser);
       return res.json({ success: false, message: "User already exists." });
     }
     // const profileImage =
@@ -172,7 +171,6 @@ const myListings = async (req, res) => {
     // Fetch listings created by the user
 
     const listings = await Booking.find({ userId: req.body.userId });
-    console.log(req.body.userId, listings);
     return res.status(200).json({ success: true, listings });
   } catch (error) {
     console.error("Error fetching listings:", error);
@@ -183,10 +181,10 @@ const myListings = async (req, res) => {
 const cancelListing = async (req, res) => {
   try {
     const { bookingId } = req.body;
-    console.log(bookingId);
+
     // Find the booking by ID
     const booking = await Booking.findById(bookingId);
-    console.log(booking);
+
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
     } else if (booking.status === "cancelled") {
@@ -233,7 +231,6 @@ const getWishList = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     } else {
-      console.log(user.wishlist);
       return res
         .status(200)
         .json({ message: "found", wishlist: user.wishlist, success: true });
@@ -294,7 +291,7 @@ const updateProfile = async (req, res) => {
   try {
     const { userId, name, email, phone, bio, gender } = req.body;
     const imageFile = req.file;
-    console.log(userId, name, email, phone, bio, gender);
+
     if (!userId || !name || !gender || !phone || !email || !bio) {
       return res.json({ success: false, message: "Missing details" });
     }
@@ -353,7 +350,7 @@ const updateProfile = async (req, res) => {
 const changePassword = async (req, res) => {
   try {
     const { userId, oldPassword, newPassword } = req.body;
-    console.log(oldPassword, newPassword);
+
     if (!userId || !oldPassword || !newPassword) {
       return res.status(400).json({ message: "Missing fields" });
     }
@@ -364,7 +361,7 @@ const changePassword = async (req, res) => {
     }
 
     const isMatch = await bcrypt.compare(oldPassword, user.password);
-    console.log(isMatch);
+
     if (!isMatch) {
       return res.json({ message: "Incorrect Password" });
     }
@@ -384,12 +381,12 @@ const changePassword = async (req, res) => {
 const getHostListings = async (req, res) => {
   try {
     const { userId } = req.body;
-    console.log(userId);
+
     const listings = await Listing.find({ hostId: userId });
-    console.log(listings);
+
     if (!listings)
       return res.json({ message: "no listing found", success: false });
-    console.log(listings);
+
     return res.json({ message: "fetched", success: true, listings });
   } catch (error) {
     return res.json({ message: error.message, success: false });

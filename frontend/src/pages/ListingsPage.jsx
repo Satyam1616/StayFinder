@@ -15,8 +15,7 @@ export default function ListingsPage() {
   const { listings, getListings, loading } = useListings();
   useEffect(() => {
     getListings();
-    console.log(activeFilters);
-    console.log(filteredListings);
+
     // Initialize filters from URL params
     const initialFilters = {};
     const location = searchParams.get("location");

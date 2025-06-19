@@ -4,11 +4,9 @@ import { io, userSocketMap } from "../socket/socket.js";
 const approveBooking = async (req, res) => {
   const { bookingId, status } = req.body;
   const userId = req.body.userId;
-  console.log(bookingId, status);
 
   const booking = await Booking.findById(bookingId);
-  console.log("userId", userId);
-  console.log("hostId", booking.hostId);
+
   if (!booking || booking.hostId.toString() !== userId.toString()) {
     return res.status(403).json({ message: "Not authorized" });
   }

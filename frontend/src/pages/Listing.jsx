@@ -40,7 +40,7 @@ const Listing = () => {
   const { toggleWishlist, wishlist } = useWishlist(token);
 
   const { id } = useParams();
-  console.log(id);
+
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const { backendUrl } = useContext(AppContext);
@@ -49,7 +49,7 @@ const Listing = () => {
     const fetchListing = async () => {
       try {
         const response = await axios.get(backendUrl + `/api/listings/${id}`);
-        console.log(response);
+
         setListing(response.data.listing);
       } catch (error) {
         console.error("Error fetching listing:", error);
@@ -60,7 +60,7 @@ const Listing = () => {
 
     fetchListing();
   }, [id]);
-  console.log(listing);
+
   if (loading && !listing)
     return (
       <div className="flex justify-center items-center h-screen">

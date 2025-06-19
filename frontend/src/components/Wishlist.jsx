@@ -13,14 +13,10 @@ const Wishlist = () => {
   const { token } = useContext(AppContext);
   const { wishlist, loading } = useWishlist(token);
 
-  // Get full listing details for wishlisted items
-  console.log(listings, wishlist);
-  // Filter listings to only include wishlisted ones
   const wishlistListings = listings.filter((listing) =>
     wishlist?.includes(listing._id)
   );
-  console.log(wishlistListings);
-  console.log(loading);
+
   if (loading)
     return (
       <div className="h-screen flex items-center justify-center ">

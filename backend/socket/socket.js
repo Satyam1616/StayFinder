@@ -1,37 +1,3 @@
-// // socket.js
-// import { Server } from "socket.io";
-
-// let io;
-
-// export const initSocket = (server) => {
-//   io = new Server(server, {
-//     cors: {
-//       origin: "http://localhost:5173",
-//       methods: ["GET", "POST"],
-//     },
-//   });
-
-//   io.on("connection", (socket) => {
-//     console.log("Socket connected:", socket.id);
-
-//     socket.on("new-booking", (data) => {
-//       console.log("New booking received:", data);
-//       io.emit("booking-added", data);
-//     });
-
-//     socket.on("disconnect", () => {
-//       console.log("User disconnected:", socket.id);
-//     });
-//   });
-
-//   return io;
-// };
-
-// export const getIO = () => {
-//   if (!io) throw new Error("Socket.io not initialized");
-//   return io;
-// };
-
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
@@ -53,30 +19,6 @@ app.use(express.json());
 // Attach io instance to request (optional, useful in route files)
 app.set("io", io);
 
-// // Socket connection
-// io.on("connection", (socket) => {
-//   console.log("Socket connected:", socket.id);
-
-//   // When a new booking is made
-//   socket.on("new-booking", (data) => {
-//     console.log("New booking received:", data);
-
-//     // Emit event to all connected clients
-//     io.emit("booking-added", data); // or socket.broadcast.emit to exclude sender
-//   });
-
-//   socket.on("update-booking", (data) => {
-//     console.log("Booking update", data);
-
-//     // Emit event to all connected clients
-//     io.emit("booking-updated", data); // or socket.broadcast.emit to exclude sender
-//   });
-
-//   // Optional: handle disconnects
-//   socket.on("disconnect", () => {
-//     console.log("Socket disconnected:", socket.id);
-//   });
-// });
 const userSocketMap = {};
 io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);

@@ -13,19 +13,16 @@ export const AuthProvider = ({ children }) => {
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-  console.log("backendurl is", backendUrl);
-
   const loadUserData = async () => {
     const { data } = await axios.get(backendUrl + "/api/user/get-profile", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("User data:", data);
+
     if (data.success) {
       setUser(data.user);
     }
-    console.log(data.user);
   };
 
   useEffect(() => {

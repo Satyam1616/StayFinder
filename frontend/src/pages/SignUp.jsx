@@ -24,7 +24,7 @@ const SignUp = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
-    console.log(formData);
+
     if (
       !formData.name ||
       !formData.email ||

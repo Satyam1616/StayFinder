@@ -34,7 +34,6 @@ const useWishlist = (token) => {
   // Toggle wishlist item (with backend update)
   const toggleWishlist = async (listingId) => {
     try {
-      console.log(token);
       const { data } = await axios.post(
         `${backendUrl}/api/user/toggle-wishlist`,
         { listingId },

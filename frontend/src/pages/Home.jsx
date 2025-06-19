@@ -19,19 +19,17 @@ import DestinationHighlights from "../components/home/DestinationHighlights.jsx"
 import HostBenefits from "../components/home/HostBenefits.jsx";
 
 const Home = () => {
-  const { token, backendUrl } = useContext(AppContext);
+  const { token } = useContext(AppContext);
   const { listings, loading, getListings } = useListings();
-  console.log(backendUrl);
+
   const currentListings = listings.slice(1, 10);
   const { wishlist, toggleWishlist } = useWishlist(token);
-  console.log(loading);
-  console.log(listings);
+
   const { hostingRef } = useContext(ScrollContext);
   const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
     getListings();
-    console.log(listings);
   }, []);
   useEffect(() => {
     // Check for scroll flag in both state and hash for redundancy

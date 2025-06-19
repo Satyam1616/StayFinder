@@ -24,7 +24,6 @@ const HostDashboard = () => {
     loading,
     handleDeleteListing,
   } = useHostListings(backendUrl, token, socket);
-  console.log(listings);
 
   const totalListings = listings.length;
   const averagePrice =
