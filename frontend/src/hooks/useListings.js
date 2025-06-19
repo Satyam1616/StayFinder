@@ -58,9 +58,7 @@ const useListings = () => {
     setError(null);
 
     try {
-      const { data } = await axios.get(`${backendUrl}/api/listings`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      });
+      const { data } = await axios.get(`${backendUrl}/api/listings`);
 
       if (data.success) {
         setListings(data.listings);
