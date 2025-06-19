@@ -76,7 +76,7 @@ const useHostGuestRequests = (backendUrl, token, socket) => {
     };
 
     const handleBookingUpdated = (data) => {
-      if (data?.updatedBookingss) {
+      if (data?.updatedBookings) {
         setRequests((prev) =>
           prev.map((req) =>
             req._id === data.updatedBooking._id
