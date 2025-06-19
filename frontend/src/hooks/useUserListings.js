@@ -6,7 +6,6 @@ import AppContext from "../context/AuthContext";
 const useUserListings = (token, backendUrl) => {
   const [userListings, setUserListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { backendUrl } = useContext(AppContext);
   const fetchUserListings = async () => {
     try {
       console.log("Fetching with:", backendUrl, token);
