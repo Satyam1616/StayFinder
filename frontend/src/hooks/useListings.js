@@ -51,7 +51,7 @@ const useListings = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { backendUrl, token } = useContext(AppContext);
-
+  console.log("listings", listings);
   // Memoize the function to prevent unnecessary recreations
   const getListings = useCallback(async () => {
     setLoading(true);
@@ -59,7 +59,7 @@ const useListings = () => {
 
     try {
       const { data } = await axios.get(`${backendUrl}/api/listings`);
-      console.log(data.listings);
+      console.log("list0", data.listings);
       if (data.success) {
         setListings(data.listings);
       } else {

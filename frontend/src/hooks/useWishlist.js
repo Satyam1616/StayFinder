@@ -1,14 +1,13 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { toast } from "sonner";
 import useWishlistStore from "../zustand/useWishlistStore.js";
-
-const backendUrl = import.meta.env.BACKEND_URL;
+import AppContext from "../context/AuthContext.jsx";
 
 const useWishlist = (token) => {
   const { wishlist, setWishlist, toggleItem, clearWishlist, loading, error } =
     useWishlistStore();
-
+  const { backendUrl } = useContext(AppContext);
   // Fetch wishlist from backend
   const getWishlist = async () => {
     try {
