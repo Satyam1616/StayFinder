@@ -166,14 +166,12 @@ const addlisting = async (req, res) => {
   }
 };
 
-const myListings = async (req, res) => {
+const getMyBookings = async (req, res) => {
   try {
-    // Fetch listings created by the user
-
-    const listings = await Booking.find({ userId: req.body.userId });
-    return res.status(200).json({ success: true, listings });
+    const bookings = await Booking.find({ userId: req.user._id }).populate("listingId");
+    return res.status(200).json({ success: true, bookings });
   } catch (error) {
-    console.error("Error fetching listings:", error);
+    console.error("Error fetching bookings:", error);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -211,8 +209,7 @@ const cancelListing = async (req, res) => {
 
 const getUserProfile = async (req, res) => {
   try {
-    const userId = req.body.userId;
-    const user = await User.findById(userId).select("-password");
+    const user = await User.findById(req.user._id).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     } else {
@@ -224,28 +221,28 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-const getWishList = async (req, res) => {
+const getMyWishlist = async (req, res) => {
   try {
-    const userId = req.body.userId;
-    const user = await User.findById(userId).select("wishlist");
+    const user = await User.findById(req.user._id).populate({
+      path: 'wishlist',
+      model: 'Listing'
+    });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
-    } else {
-      return res
-        .status(200)
-        .json({ message: "found", wishlist: user.wishlist, success: true });
     }
+    return res.status(200).json({ success: true, wishlist: user.wishlist });
   } catch (error) {
     console.error("Error fetching wishlist:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
 const toggleWishList = async (req, res) => {
   try {
-    const { listingId, userId } = req.body;
-
-    // Find the user
+    const { listingId } = req.body;
+    const userId = req.user._id;
     const user = await User.findById(userId);
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -289,20 +286,15 @@ const toggleWishList = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const { userId, name, email, phone, bio, gender } = req.body;
-    const imageFile = req.file;
+    const { name, email } = req.body;
+    const userId = req.user._id;
 
-    if (!userId || !name || !gender || !phone || !email || !bio) {
-      return res.json({ success: false, message: "Missing details" });
-    }
-    // Find user
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
     // Check if email is being changed and not already taken
-
     const emailExists = await User.findOne({ email });
     if (emailExists && emailExists._id.toString() !== userId) {
       return res.json({
@@ -314,17 +306,7 @@ const updateProfile = async (req, res) => {
     // Update fields
     user.name = name || user.name;
     user.email = email || user.email;
-    user.phone = phone || user.phone;
-    user.bio = bio || user.bio;
-    user.gender = gender || user.gender;
     // Save updated user
-    if (imageFile) {
-      const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
-        resource_type: "image",
-      });
-      const imageUrl = imageUpload.secure_url;
-      await User.findByIdAndUpdate(userId, { profileImage: imageUrl });
-    }
     const updatedUser = await user.save();
 
     // Return user data without password
@@ -349,11 +331,8 @@ const updateProfile = async (req, res) => {
 
 const changePassword = async (req, res) => {
   try {
-    const { userId, oldPassword, newPassword } = req.body;
-
-    if (!userId || !oldPassword || !newPassword) {
-      return res.status(400).json({ message: "Missing fields" });
-    }
+    const { oldPassword, newPassword } = req.body;
+    const userId = req.user._id;
 
     const user = await User.findById(userId);
     if (!user) {
@@ -368,12 +347,9 @@ const changePassword = async (req, res) => {
 
     user.password = newPassword;
     await user.save();
-
-    return res
-      .status(200)
-      .json({ success: true, message: "Password updated successfully" });
+    res.json({ success: true, message: "Password updated successfully" });
   } catch (error) {
-    console.error("Change password error:", error);
+    console.error("Error changing password:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -412,10 +388,10 @@ export {
   login,
   register,
   addlisting,
-  myListings,
+  getMyBookings,
   cancelListing,
   getUserProfile,
-  getWishList,
+  getMyWishlist,
   toggleWishList,
   updateProfile,
   changePassword,

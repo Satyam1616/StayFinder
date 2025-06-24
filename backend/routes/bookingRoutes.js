@@ -1,6 +1,13 @@
 import express from "express";
-import authUser from "../middleware/authUser.js";
-import { approveBooking } from "../controllers/bookingController.js";
-const bookingRoutes = express.Router();
-bookingRoutes.post("/approve-booking", authUser, approveBooking);
-export default bookingRoutes;
+import {
+  approveBooking,
+  getHostGuestRequests,
+} from "../controllers/bookingController.js";
+import { protectedRoute } from "../middleware/auth.middleware.js";
+
+const router = express.Router();
+
+router.put("/approve", protectedRoute, approveBooking);
+router.get("/guest-requests", protectedRoute, getHostGuestRequests);
+
+export default router;

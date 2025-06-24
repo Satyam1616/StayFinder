@@ -3,7 +3,21 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import PropertyCard from '../PropertyCard';
 
-export default function PopularStays({ navigation, mockListings }) {
+export default function PopularStays({ navigation, listings }) {
+  // Map backend fields to PropertyCard props
+  const mappedListings = (listings || []).map((item) => ({
+    ...item,
+    name: item.title || item.name || 'Untitled',
+    image: item.images && item.images.length > 0 ? item.images[0] : 'https://via.placeholder.com/300x200?text=No+Image',
+    rating: item.rating || 4.5,
+    guests: item.guests || 2,
+    bedrooms: item.bedrooms || 1,
+    bathrooms: item.bathrooms || 1,
+    amenities: item.amenities || {},
+    location: item.location || '',
+    price: item.price || 0,
+  }));
+
   return (
     <View style={styles.section}>
       <TouchableOpacity style={styles.popularRow} onPress={() => navigation.navigate('Listings')} activeOpacity={0.7}>
@@ -12,7 +26,7 @@ export default function PopularStays({ navigation, mockListings }) {
       </TouchableOpacity>
       <FlatList
         horizontal
-        data={mockListings}
+        data={mappedListings}
         renderItem={({ item }) => (
           <View style={{ marginRight: 15 }}>
             <PropertyCard
@@ -21,7 +35,7 @@ export default function PopularStays({ navigation, mockListings }) {
             />
           </View>
         )}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item._id || item.id}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingLeft: 0, paddingRight: 20 }}
       />

@@ -1,29 +1,22 @@
 import express from "express";
 import {
   createListing,
+  deleteListing,
   getListingById,
   getListings,
-  deleteListing,
+  getHostListings,
   editListing,
 } from "../controllers/listingController.js";
-import authUser from "../middleware/authUser.js";
 import upload from "../middleware/multer.js";
+import authUser from "../middleware/authUser.js";
 
-const listingRoutes = express.Router();
-listingRoutes.get("/", getListings);
-listingRoutes.get("/:id", getListingById);
-listingRoutes.delete("/delete-listing/:id", authUser, deleteListing);
-listingRoutes.post(
-  "/create-listing",
-  upload.array("images", 3),
-  authUser,
-  createListing
-);
-listingRoutes.put(
-  "/edit-listing/:id",
-  upload.array("images", 3),
-  authUser,
-  editListing
-);
-listingRoutes.delete("/delete-listing/:id", authUser, deleteListing);
-export default listingRoutes;
+const router = express.Router();
+
+router.get("/", getListings);
+router.get("/host-listings", authUser, getHostListings);
+router.get("/:id", getListingById);
+router.post("/create", authUser, upload.array("images", 5), createListing);
+router.put("/:id", authUser, upload.array("images", 10), editListing);
+router.delete("/:id", authUser, deleteListing);
+
+export default router;

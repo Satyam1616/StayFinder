@@ -1,42 +1,42 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export default function Header() {
+export default function Header({ navigation }) {
+  const insets = useSafeAreaInsets();
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Image source={require('../../../assets/home.png')} style={styles.logo} />
         <Text style={styles.headerTitle}>StayFinder</Text>
       </View>
-      <Ionicons name="menu" size={28} color="#222" />
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <Ionicons name="person-circle-outline" size={32} color="#333" />
+      </TouchableOpacity>
     </View>
   );
 }
 
-const styles = {
+const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 14,
-    paddingTop: 14,
-    paddingBottom: 8,
+    paddingHorizontal: 16,
+    paddingBottom: 10,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#f7f7f7',
+    borderBottomColor: '#f0f0f0',
   },
   logo: {
-    width: 32,
-    height: 32,
-    marginRight: 8,
-    borderRadius: 8,
+    width: 36,
+    height: 36,
+    marginRight: 10,
   },
   headerTitle: {
-    fontSize: 19,
-    fontWeight: '700',
-    color: '#f43f5e',
-    fontFamily: 'System',
-    letterSpacing: 0.1,
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#222',
   },
-}; 
+}); 

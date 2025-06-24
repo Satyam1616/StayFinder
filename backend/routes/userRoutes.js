@@ -3,38 +3,39 @@ import {
   register,
   login,
   addlisting,
-  myListings,
+  getMyBookings,
   cancelListing,
   getUserProfile,
-  getWishList,
   toggleWishList,
   updateProfile,
   changePassword,
+  getMyWishlist,
   getHostListings,
   getHostGuestListings,
 } from "../controllers/userController.js";
-import authUser from "../middleware/authUser.js";
+import { protectedRoute } from "../middleware/auth.middleware.js";
 import upload from "../middleware/multer.js";
 
-const userRoutes = express.Router();
+const router = express.Router();
 
-userRoutes.post("/register", register);
-userRoutes.post("/login", login);
-userRoutes.get("/my-listings", authUser, myListings);
-userRoutes.post("/add-listing", authUser, addlisting);
-userRoutes.post("/cancel-booking", authUser, cancelListing);
-userRoutes.get("/get-profile", authUser, getUserProfile);
-userRoutes.get("/get-wishlist", authUser, getWishList);
-userRoutes.post("/toggle-wishlist", authUser, toggleWishList);
-//userRoutes.post("/become-host", authUser, becomeHost);
-userRoutes.post(
-  "/update-profile",
-  upload.single("profileImage"),
-  authUser,
-  updateProfile
-);
-userRoutes.post("/change-password", authUser, changePassword);
+router.post("/register", register);
+router.post("/login", login);
+router.post("/add-listing", protectedRoute, addlisting);
 
-userRoutes.get("/host-listings", authUser, getHostListings);
-userRoutes.get("/host-guest-listings", authUser, getHostGuestListings);
-export default userRoutes;
+// Profile routes
+router.get("/profile", protectedRoute, getUserProfile);
+router.put("/profile/update", protectedRoute, updateProfile);
+router.put("/profile/change-password", protectedRoute, changePassword);
+
+// Bookings
+router.get("/my-bookings", protectedRoute, getMyBookings);
+router.put("/cancel-listing", protectedRoute, cancelListing);
+
+// Wishlist
+router.get("/my-wishlist", protectedRoute, getMyWishlist);
+router.post("/toggle-wishlist", protectedRoute, toggleWishList);
+
+router.get("/host-listings", protectedRoute, getHostListings);
+router.get("/host-guest-listings", protectedRoute, getHostGuestListings);
+
+export default router;

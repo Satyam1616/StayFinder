@@ -220,10 +220,22 @@ const deleteListing = async (req, res) => {
   }
 };
 
+const getHostListings = async (req, res) => {
+  try {
+    const hostId = req.body.userId;
+    const listings = await Listing.find({ hostId });
+    res.status(200).json({ success: true, listings });
+  } catch (error) {
+    console.error("Error fetching host listings:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 export {
   getListings,
   getListingById,
   deleteListing,
   createListing,
   editListing,
+  getHostListings,
 };

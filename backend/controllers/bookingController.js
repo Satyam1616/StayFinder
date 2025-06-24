@@ -1,9 +1,22 @@
 import Booking from "../models/bookingModel.js";
 import { io, userSocketMap } from "../socket/socket.js";
 
+const getHostGuestRequests = async (req, res) => {
+  try {
+    const hostId = req.user._id; // from authMiddleware
+    const requests = await Booking.find({ hostId })
+      .populate("userId", "username profilePic")
+      .populate("listingId");
+    res.status(200).json({ success: true, requests });
+  } catch (error) {
+    console.error("Error fetching guest requests:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 const approveBooking = async (req, res) => {
   const { bookingId, status } = req.body;
-  const userId = req.body.userId;
+  const userId = req.user._id;
 
   const booking = await Booking.findById(bookingId);
 
@@ -47,4 +60,4 @@ const approveBooking = async (req, res) => {
   });
 };
 
-export { approveBooking };
+export { approveBooking, getHostGuestRequests };
