@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "46dd13f3-e95d-4770-acdb-b9d6d52a9783"
+      }
+    },
+    "android": {
+      "package": "com.satyam_xd.mobile"
+    }
+  }
+}
