@@ -1,12 +1,35 @@
 {
   "expo": {
+    "name": "StayFinder",
+    "slug": "mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.satyam_xd.mobile"
+    },
+    "web": {
+      "favicon": "./assets/icon.png"
+    },
     "extra": {
       "eas": {
         "projectId": "46dd13f3-e95d-4770-acdb-b9d6d52a9783"
       }
-    },
-    "android": {
-      "package": "com.satyam_xd.mobile"
     }
   }
 }
